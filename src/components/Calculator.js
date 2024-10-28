@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Calculator.css'; // You'll use this for styling
+import { evaluate } from 'mathjs';  // Import evaluate function from math.js
+import './Calculator.css';
 
 const Calculator = () => {
     const [input, setInput] = useState('');  // To store the input
@@ -14,7 +15,8 @@ const Calculator = () => {
 
     const calculateResult = () => {
         try {
-            setInput(eval(input).toString());  // Evaluate the expression
+            // Using math.js evaluate function instead of eval for safe BODMAS calculation
+            setInput(evaluate(input).toString());
         } catch (error) {
             setInput('Error');
         }
@@ -44,6 +46,8 @@ const Calculator = () => {
                 <button onClick={() => handleButtonClick('.')}>.</button>
                 <button onClick={() => handleButtonClick('/')}>/</button>
 
+                <button onClick={() => handleButtonClick('(')}>(</button>
+                <button onClick={() => handleButtonClick(')')}>)</button>
                 <button onClick={calculateResult}>=</button>
             </div>
         </div>
